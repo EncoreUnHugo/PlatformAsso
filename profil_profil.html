@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil - AssociAction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .sidebar {
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-link:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+        }
+        
+        .sidebar-link.active {
+            background-color: rgba(79, 70, 229, 0.1);
+            border-left: 3px solid #4f46e5;
+        }
+        
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+        
+        .skill-tag {
+            transition: all 0.2s ease;
+        }
+        
+        .skill-tag:hover {
+            transform: translateY(-2px);
+        }
+        
+        .tab-button {
+            transition: all 0.2s ease;
+        }
+        
+        .tab-button.active {
+            border-bottom: 3px solid #4f46e5;
+            color: #4f46e5;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 80%;
+            max-width: 300px;
+            background: white;
+            z-index: 100;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                position: fixed;
+                z-index: 100;
+                width: 80%;
+                max-width: 280px;
+                height: 100vh;
+                background: white;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0 !important;
+            }
+            
+            .mobile-sidebar-toggle {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm py-4 px-6 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <button id="mobile-sidebar-toggle" class="text-gray-600 mr-2 mobile-sidebar-toggle hidden">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-hands-helping text-indigo-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">AssociAction</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#" class="text-gray-600 hover:text-indigo-600 transition-all">Accueil</a>
+                <a href="#" class="text-gray-600 hover:text-indigo-600 transition-all">Associations</a>
+                <a href="#" class="text-gray-600 hover:text-indigo-600 transition-all">Événements</a>
+                <a href="#" class="text-gray-600 hover:text-indigo-600 transition-all">Projets</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <button id="notification-button" class="text-gray-600 hover:text-indigo-600 transition-all">
+                        <i class="fas fa-bell text-xl"></i>
+                        <span class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">3</span>
+                    </button>
+                </div>
+                <div class="relative group">
+                    <button id="user-menu-button" class="flex items-center space-x-2 focus:outline-none">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profil" class="w-8 h-8 rounded-full">
+                        <span class="hidden md:inline text-gray-700">Sophie Martin</span>
+                        <i class="fas fa-chevron-down text-gray-500 text-xs hidden md:inline"></i>
+                    </button>
+                    <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 group-hover:block">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Mon profil</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Paramètres</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Déconnexion</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-hands-helping text-indigo-600 text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">AssociAction</span>
+                </div>
+                <button id="close-mobile-menu" class="text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            
+            <div class="flex flex-col space-y-6">
+                <a href="#" class="text-gray-800 font-medium">Accueil</a>
+                <a href="#" class="text-gray-800 font-medium">Associations</a>
+                <a href="#" class="text-gray-800 font-medium">Événements</a>
+                <a href="#" class="text-gray-800 font-medium">Projets</a>
+                
+                <div class="pt-4 border-t border-gray-200 mt-4">
+                    <a href="#" class="block w-full text-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-all mb-3">
+                        <i class="fas fa-user-plus mr-2"></i>S'inscrire
+                    </a>
+                    <a href="#" class="block w-full text-center px-4 py-2 border border-indigo-600 text-indigo-600 rounded-md hover:bg-indigo-50 transition-all">
+                        <i class="fas fa-sign-in-alt mr-2"></i>Connexion
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Main Content -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar bg-white w-64 min-h-screen shadow-sm pt-6 pb-4 px-4">
+            <div class="flex flex-col h-full">
+                <!-- User Profile -->
+                <div class="flex items-center space-x-3 mb-8 px-2">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profil" class="w-12 h-12 rounded-full">
+                    <div>
+                        <h3 class="font-semibold text-gray-800">Sophie Martin</h3>
+                        <p class="text-xs text-gray-500">Bénévole depuis 2021</p>
+                    </div>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="flex-1">
+                    <a href="#" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-md mb-1 text-gray-800">
+                        <i class="fas fa-tachometer-alt text-gray-500 w-5"></i>
+                        <span>Tableau de bord</span>
+                    </a>
+                    <a href="#" class="sidebar-link active flex items-center space-x-3 py-2 px-3 rounded-md mb-1 text-gray-800">
+                        <i class="fas fa-user text-gray-500 w-5"></i>
+                        <span>Mon profil</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-md mb-1 text-gray-800">
+                        <i class="fas fa-calendar-check text-gray-500 w-5"></i>
+                        <span>Mes événements</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-md mb-1 text-gray-800">
+                        <i class="fas fa-lightbulb text-gray-500 w-5"></i>
+                        <span>Mes projets</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-md mb-1 text-gray-800">
+                        <i class="fas fa-heart text-gray-500 w-5"></i>
+                        <span>Mes associations</span>
+                    </a>
+                    <a href="#" class="sidebar-link flex items-center space-x-3 py-2 px-3 rounded-md mb-1 text-gray-800">
+                        <i class="fas fa-cog text-gray-500 w-5"></i>
+                        <span>Paramètres</span>
+                    </a>
+                </div>
+                
+                <!-- Bottom Section -->
+                <div class="pt-4 border-t border-gray-200">
+                    <a href="#" class="flex items-center space-x-3 py-2 px-3 rounded-md text-gray-800 hover:bg-gray-100">
+                        <i class="fas fa-question-circle text-gray-500 w-5"></i>
+                        <span>Aide & Support</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 py-2 px-3 rounded-md text-gray-800 hover:bg-gray-100">
+                        <i class="fas fa-sign-out-alt text-gray-500 w-5"></i>
+                        <span>Déconnexion</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div id="main-content" class="main-content flex-1 ml-64 p-6">
+            <!-- Profile Header -->
+            <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center">
+                    <div class="flex items-center mb-4 md:mb-0 md:mr-6">
+                        <div class="relative">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profil" class="w-20 h-20 rounded-full border-4 border-indigo-100">
+                            <button class="absolute bottom-0 right-0 bg-indigo-600 text-white rounded-full p-2 hover:bg-indigo-700 transition-all">
+                                <i class="fas fa-camera text-xs"></i>
+                            </button>
+                        </div>
+                        <div class="ml-4">
+                            <h1 class="text-2xl font-bold text-gray-800">Sophie Martin</h1>
+                            <p class="text-gray-600">Bénévole active depuis 2021</p>
+                            <div class="flex items-center mt-1">
+                                <i class="fas fa-map-marker-alt text-gray-400 text-sm mr-1"></i>
+                                <span class="text-gray-500 text-sm">Paris, France</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-3 md:ml-auto">
+                        <button class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-all flex items-center">
+                            <i class="fas fa-pencil-alt mr-2 text-sm"></i> Modifier le profil
+                        </button>
+                        <button class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-all flex items-center">
+                            <i class="fas fa-share-alt mr-2 text-sm"></i> Partager
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tabs Navigation -->
+            <div class="bg-white rounded-lg shadow-sm p-1 mb-6">
+                <div class="flex overflow-x-auto">
+                    <button class="tab-button active px-6 py-3 font-medium text-gray-600 whitespace-nowrap">
+                        <i class="fas fa-user mr-2"></i> Aperçu
+                    </button>
+                    <button class="tab-button px-6 py-3 font-medium text-gray-600 whitespace-nowrap">
+                        <i class="fas fa-calendar-alt mr-2"></i> Activités
+                    </button>
+                    <button class="tab-button px-6 py-3 font-medium text-gray-600 whitespace-nowrap">
+                        <i class="fas fa-trophy mr-2"></i> Récompenses
+                    </button>
+                    <button class="tab-button px-6 py-3 font-medium text-gray-600 whitespace-nowrap">
+                        <i class="fas fa-cog mr-2"></i> Paramètres
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Profile Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left Column -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- About Section -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold text-gray-800">À propos</h2>
+                            <button class="text-indigo-600 hover:text-indigo-800">
+                                <i class="fas fa-pencil-alt"></i>
+                            </button>
+                        </div>
+                        <p class="text-gray-600 mb-4">
+                            Passionnée par l'engagement citoyen et le bénévolat, je m'investis depuis plusieurs années dans des causes qui me tiennent à cœur. Mon objectif est de contribuer à un monde plus solidaire et durable.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-gray-400 mr-3 w-5"></i>
+                                <div>
+                                    <p class="text-xs text-gray-500">Email</p>
+                                    <p class="text-gray-700">sophie.martin@example.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-gray-400 mr-3 w-5"></i>
+                                <div>
+                                    <p class="text-xs text-gray-500">Téléphone</p>
+                                    <p class="text-gray-700">+33 6 12 34 56 78</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-birthday-cake text-gray-400 mr-3 w-5"></i>
+                                <div>
+                                    <p class="text-xs text-gray-500">Date de naissance</p>
+                                    <p class="text-gray-700">15 mars 1990</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-language text-gray-400 mr-3 w-5"></i>
+                                <div>
+                                    <p class="text-xs text-gray-500">Langues</p>
+                                    <p class="text-gray-700">Français, Anglais, Espagnol</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills Section -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold text-gray-800">Compétences</h2>
+                            <button class="text-indigo-600 hover:text-indigo-800">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="skill-tag px-4 py-2 bg-indigo-50 text-indigo-700 rounded-full flex items-center">
+                                <i class="fas fa-hands-helping mr-2"></i> Animation d'équipe
+                            </div>
+                            <div class="skill-tag px-4 py-2 bg-green-50 text-green-700 rounded-full flex items-center">
+                                <i class="fas fa-leaf mr-2"></i> Sensibilisation écologie
+                            </div>
+                            <div class="skill-tag px-4 py-2 bg-blue-50 text-blue-700 rounded-full flex items-center">
+                                <i class="fas fa-chalkboard-teacher mr-2"></i> Pédagogie
+                            </div>
+                            <div class="skill-tag px-4 py-2 bg-purple-50 text-purple-700 rounded-full flex items-center">
+                                <i class="fas fa-comments mr-2"></i> Communication
+                            </div>
+                            <div class="skill-tag px-4 py-2 bg-yellow-50 text-yellow-700 rounded-full flex items-center">
+                                <i class="fas fa-utensils mr-2"></i> Organisation événements
+                            </div>
+                            <div class="skill-tag px-4 py-2 bg-red-50 text-red-700 rounded-full flex items-center">
+                                <i class="fas fa-first-aid mr-2"></i> Premiers secours
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Experience Section -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold text-gray-800">Expériences de bénévolat</h2>
+                            <button class="text-indigo-600 hover:text-indigo-800">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <!-- Experience 1 -->
+                            <div class="flex">
+                                <div class="mr-4">
+                                    <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
+                                        <i class="fas fa-hands-helping text-indigo-600"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-800">Coordinatrice bénévole</h3>
+                                    <p class="text-gray-600">Restos du Cœur · 2021 - Présent</p>
+                                    <p class="text-gray-500 text-sm mt-1">
+                                        Coordination des équipes de bénévoles pour la distribution alimentaire. Formation des nouveaux bénévoles et gestion des plannings.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Experience 2 -->
+                            <div class="flex">
+                                <div class="mr-4">
+                                    <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                                        <i class="fas fa-leaf text-green-600"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-800">Bénévole environnement</h3>
+                                    <p class="text-gray-600">Greenpeace France · 2019 - 2021</p>
+                                    <p class="text-gray-500 text-sm mt-1">
+                                        Participation aux actions de sensibilisation sur les enjeux climatiques. Organisation de cleanwalks et stands d'information.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Experience 3 -->
+                            <div class="flex">
+                                <div class="mr-4">
+                                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <i class="fas fa-child text-blue-600"></i>
+                                    </div>
+                                </div>
+                                <div class="flex-1">
+                                    <h3 class="font-semibold text-gray-800">Accompagnatrice scolaire</h3>
+                                    <p class="text-gray-600">AFEV · 2018 - 2019</p>
+                                    <p class="text-gray-500 text-sm mt-1">
+                                        Accompagnement hebdomadaire d'un enfant en difficulté scolaire. Aide aux devoirs et activités éducatives.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Column -->
+                <div class="space-y-6">
+                    <!-- Stats Section -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <h2 class="text-xl font-bold text-gray-800 mb-4">Mon engagement</h2>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="bg-indigo-50 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-indigo-600">42</div>
+                                <div class="text-sm text-gray-600">Événements</div>
+                            </div>
+                            <div class="bg-green-50 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-green-600">128</div>
+                                <div class="text-sm text-gray-600">Heures</div>
+                            </div>
+                            <div class="bg-purple-50 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-purple-600">6</div>
+                                <div class="text-sm text-gray-600">Associations</div>
+                            </div>
+                            <div class="bg-yellow-50 rounded-lg p-4 text-center">
+                                <div class="text-3xl font-bold text-yellow-600">3</div>
+                                <div class="text-sm text-gray-600">Récompenses</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Progression annuelle</span>
+                                <span>75%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-indigo-600 h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>Niveau d'engagement</span>
+                                <span>Expert</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Badges Section -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold text-gray-800">Mes badges</h2>
+                            <button class="text-indigo-600 hover:text-indigo-800">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="flex flex-col items-center">
+                                <div class="w-16 h-16 rounded-full bg-yellow-100 flex items-center justify-center mb-2">
+                                    <i class="fas fa-medal text-yellow-500 text-2xl"></i>
+                                </div>
+                                <span class="text-xs text-center text-gray-600">Bénévole assidu</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                                    <i class="fas fa-star text-blue-500 text-2xl"></i>
+                                </div>
+                                <span class="text-xs text-center text-gray-600">Leader</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                                    <i class="fas fa-seedling text-green-500 text-2xl"></i>
+                                </div>
+                                <span class="text-xs text-center text-gray-600">Éco-warrior</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mb-2">
+                                    <i class="fas fa-heart text-purple-500 text-2xl"></i>
+                                </div>
+                                <span class="text-xs text-center text-gray-600">Coeur sur la main</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-2">
+                                    <i class="fas fa-fire text-red-500 text-2xl"></i>
+                                </div>
+                                <span class="text-xs text-center text-gray-600">Passionné</span>
+                            </div>
+                            <div class="flex flex-col items-center">
+                                <div class="w-16 h-16 rounded-full bg-indigo-100 flex items-center justify-center mb-2">
+                                    <i class="fas fa-plus text-indigo-500 text-2xl"></i>
+                                </div>
+                                <span class="text-xs text-center text-gray-600">À découvrir</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Associations Section -->
+                    <div class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold text-gray-800">Mes associations</h2>
+                            <button class="text-indigo-600 hover:text-indigo-800">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <img src="https://via.placeholder.com/40" alt="Restos du Cœur" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Restos du Cœur</h3>
+                                    <p class="text-xs text-gray-500">Membre depuis 2021</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="https://via.placeholder.com/40" alt="Greenpeace" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Greenpeace France</h3>
+                                    <p class="text-xs text-gray-500">Membre depuis 2019</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <img src="https://via.placeholder.com/40" alt="Croix-Rouge" class="w-10 h-10 rounded-full mr-3">
+                                <div>
+                                    <h3 class="font-medium text-gray-800">Croix-Rouge</h3>
+                                    <p class="text-xs text-gray-500">Membre depuis 2020</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full mt-4 px-4 py-2 border border-dashed border-gray-300 text-gray-500 rounded-md hover:bg-gray-50 transition-all">
+                            <i class="fas fa-plus mr-2"></i> Rejoindre une association
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMobileMenu = document.getElementById('close-mobile-menu');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const overlay = document.getElementById('overlay');
+            
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.add('active');
+                    overlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+            
+            if (closeMobileMenu) {
+                closeMobileMenu.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            // Sidebar toggle for mobile
+            const mobileSidebarToggle = document.getElementById('mobile-sidebar-toggle');
+            const sidebar = document.getElementById('sidebar');
+            
+            if (mobileSidebarToggle) {
+                mobileSidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+                });
+            }
+            
+            // User dropdown
+            const userMenuButton = document.getElementById('user-menu-button');
+            const userDropdown = document.getElementById('user-dropdown');
+            
+            if (userMenuButton && userDropdown) {
+                userMenuButton.addEventListener('click', function() {
+                    userDropdown.classList.toggle('hidden');
+                });
+                
+                // Close when clicking outside
+                document.addEventListener('click', function(event) {
+                    if (!userMenuButton.contains(event.target) && !userDropdown.contains(event.target)) {
+                        userDropdown.classList.add('hidden');
+                    }
+                });
+            }
+            
+            // Notification dropdown
+            const notificationButton = document.getElementById('notification-button');
+            
+            if (notificationButton) {
+                notificationButton.addEventListener('click', function() {
+                    // Implement notification dropdown if needed
+                    alert("Notifications cliquées !");
+                });
+            }
+            
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    // Here you would switch between tab contents
+                });
+            });
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
