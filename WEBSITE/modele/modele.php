@@ -64,5 +64,6 @@ class Modele{
         $resultat->setFetchmode(PDO::FETCH_CLASS, "$table");
         return $resultat->fetchAll();
     }
+
 }
 ?>

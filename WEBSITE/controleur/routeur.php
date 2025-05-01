@@ -7,11 +7,14 @@
     $controleur = "controleurAccueil";
     $action = "afficherAccueil";
 
-    $tableauControleurs = ["controleurMembre","controleurEvenement","controleurAccueil","controleurProjet"];
+    $tableauControleurs = ["controleurMembre","controleurEvenement","controleurAccueil","controleurProjet","controleurConnexion"];
     $actionParDefaut = array(
-        "controleurMembre" => "lireMembres",
+        "controleurMembre" => "lireUnObjet",
         "controleurEvenement" => "lireEvenements",
         "controleurAccueil" => "afficherAccueil",
+        "controleurProjet" => "lireProjets",
+        "controleurConnexion" => "afficherConnexion",
+
     );
 
     if(array_key_exists("controleur",$_GET) && in_array($_GET["controleur"],$tableauControleurs)){

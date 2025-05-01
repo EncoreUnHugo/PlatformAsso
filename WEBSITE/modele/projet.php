@@ -1,6 +1,6 @@
 <?php
 
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/modele.php");
+require_once("modele/modele.php");
 
     class Projet extends Modele{
 

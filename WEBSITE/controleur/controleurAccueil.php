@@ -1,22 +1,22 @@
 <?php
 
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/membre.php");
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/projet.php");
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/evenement.php");
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/modele.php");
+require_once("modele/membre.php");
+require_once("modele/projet.php");
+require_once("modele/evenement.php");
+require_once("modele/modele.php");
 
     class controleurAccueil {
         public static function afficherAccueil(){
              
             $titre = "Accueil"; 
             
-            include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/debut.php");
+            include("vue/debut.php");
 
-            include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/navbar.html");
+            include("vue/navbar.php");
 
-            include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/accueil.php");
+            include("vue/accueil.php");
 
-            include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/footer.html");
+            include("vue/footer.html");
 
         }
     }

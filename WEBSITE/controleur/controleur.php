@@ -1,10 +1,10 @@
 <?php
 
 
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/evenement.php");
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/projet.php");
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/modele.php");
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/membre.php");
+require_once("modele/evenement.php");
+require_once("modele/projet.php");
+require_once("modele/modele.php");
+require_once("modele/membre.php");
 
 Class Controleur{
     public static function lireObjets(){
@@ -16,13 +16,13 @@ Class Controleur{
 
         $tableau = $key::getAll("$key");
 
-        include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/debut.php");
+        include("vue/debut.php");
 
-        include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/navbar.html");
+        include("vue/navbar.php");
 
-        include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/lesObjets.php");
+        include("vue/lesObjets.php");
 
-        include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/footer.html");
+        include("vue/footer.html");
     }
 
     public static function lireUnObjet(){
@@ -30,19 +30,23 @@ Class Controleur{
         $key = static::$cle;
         $inf = static::$info;
 
-        $l = $_GET["$inf"];
+        if($key != "membre"){
+            $l = $_GET["$inf"];
+        } else{
+            $l = $_SESSION["mail"];
+        }
 
         $tab = $key::getObjetById($l);
 
         $titre = static::$objet;
         
-        include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/debut.php");
+        include("vue/debut.php");
 
-        include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/navbar.html");
+        include("vue/navbar.php");
 
-        include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/unObjet.php");
+        include("vue/unObjet.php");
 
-        include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/footer.html");
+        include("vue/footer.html");
 
 
     }

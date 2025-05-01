@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/unProjet.css">
     <link rel="stylesheet" href="css/unEvenement.css">
+    <link rel="stylesheet" href="css/profil.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="JS/unProjet.js"></script>
-    <script src="JS/unEvenement.js"></script>
     <script src="JS/accueil.js"></script>
 </head>
 <header>

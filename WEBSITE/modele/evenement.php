@@ -1,6 +1,6 @@
 <?php
 
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/modele.php");
+require_once("modele/modele.php");
 
     class Evenement extends Modele{
 
@@ -98,10 +98,19 @@ require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/modele.php");
                     <?php echo $this->description ?>
                     </p>
                 </div>
-            
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-wrap gap-4">
+                    <button class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center justify-center">
+                        <i class="far fa-calendar-plus mr-2"></i> Ajouter au calendrier
+                    </button>
+                    <button class="flex-1 bg-white hover:bg-gray-100 text-indigo-600 font-bold py-3 px-6 rounded-lg border border-indigo-600 transition duration-300 flex items-center justify-center">
+                        <i class="fas fa-share-alt mr-2"></i> Partager
+                    </button>
+                </div>
             </div>
         </div>
-    
+        
     </div>
     <?php
     }

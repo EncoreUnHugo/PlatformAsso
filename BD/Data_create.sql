@@ -21,7 +21,7 @@ CREATE TABLE Membre (
     prenom VARCHAR(100),
     email VARCHAR(255) UNIQUE,
     mot_de_passe VARCHAR(255),
-    id_role INT,
+    id_role INT DEFAULT 2,
     FOREIGN KEY (id_role) REFERENCES Role(id_role)
 );
 
