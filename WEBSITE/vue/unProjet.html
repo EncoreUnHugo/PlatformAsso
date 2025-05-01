@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Projet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .project-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        .progress-bar-container {
+            height: 8px;
+            background-color: #e2e8f0;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4f46e5 0%, #6366f1 100%);
+            border-radius: 9999px;
+            transition: width 1s ease-in-out;
+        }
+        .status-badge {
+            transition: all 0.3s ease;
+        }
+        .status-badge:hover {
+            transform: scale(1.05);
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <!-- Bouton retour -->
+        <a href="#" class="inline-flex items-center text-indigo-600 hover:text-indigo-800 mb-6 transition duration-300">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Retour aux projets
+        </a>
+
+        <!-- Carte du projet -->
+        <div class="project-card rounded-2xl overflow-hidden border border-gray-100">
+            <!-- En-tête -->
+            <div class="px-6 py-5 border-b border-gray-100">
+                <div class="flex items-center justify-between">
+                    <h1 class="text-2xl font-bold text-gray-800">Plateforme E-Learning</h1>
+                    <div class="status-badge bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm font-medium animate-float">
+                        <i class="fas fa-circle-notch mr-1"></i> En cours
+                    </div>
+                </div>
+                <p class="text-sm text-gray-500 mt-1">
+                    <i class="far fa-calendar-alt mr-1"></i>
+                    Créé le 15/03/2023 • Dernière mise à jour: 22/05/2023
+                </p>
+            </div>
+
+            <!-- Contenu -->
+            <div class="px-6 py-5">
+                <!-- Section description -->
+                <div class="mb-6">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-3">
+                        <i class="fas fa-align-left text-indigo-500 mr-2"></i>Description
+                    </h2>
+                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <p class="text-gray-700 leading-relaxed">
+                            Développement d'une plateforme complète d'apprentissage en ligne avec gestion de cours,
+                            système d'évaluation, tableau de bord étudiant et fonctionnalités de collaboration.
+                            L'objectif est de permettre aux enseignants de créer facilement des cours interactifs
+                            et aux étudiants d'accéder à du contenu pédagogique de qualité depuis n'importe quel appareil.
+                            Intégration prévue avec Moodle et Google Classroom.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Section avancement -->
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-semibold text-gray-700">
+                            <i class="fas fa-tasks text-indigo-500 mr-2"></i>Avancement
+                        </h2>
+                        <span class="text-sm font-medium text-indigo-600">75% complété</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: 75%"></div>
+                    </div>
+                </div>
+
+                <!-- Détails de l'avancement -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 text-center">
+                        <div class="text-indigo-600 font-bold text-2xl mb-1">18</div>
+                        <div class="text-sm text-gray-600">Tâches terminées</div>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 text-center">
+                        <div class="text-indigo-600 font-bold text-2xl mb-1">6</div>
+                        <div class="text-sm text-gray-600">En cours</div>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg border border-gray-200 text-center">
+                        <div class="text-indigo-600 font-bold text-2xl mb-1">4</div>
+                        <div class="text-sm text-gray-600">Non commencées</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pied de carte -->
+            <div class="bg-gray-50 px-6 py-4 border-t border-gray-100">
+                <div class="flex justify-between items-center">
+                    <div class="flex space-x-2">
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-user-friends mr-1"></i>
+                            <span>Équipe: 3 membres</span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-500">
+                            <i class="fas fa-tag mr-1"></i>
+                            <span>Développement</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="text-indigo-600 hover:text-indigo-800 text-sm font-medium transition duration-300">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section membres -->
+        <div class="mt-6 bg-white rounded-2xl border border-gray-100 p-6 project-card">
+            <h2 class="text-lg font-semibold text-gray-700 mb-4">
+                <i class="fas fa-users text-indigo-500 mr-2"></i>Membres de l'équipe
+            </h2>
+            <div class="flex flex-wrap gap-4">
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                        JD
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-800">Jean Dupont</p>
+                        <p class="text-xs text-gray-500">Chef de projet</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
+                        MS
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-800">Marie Simon</p>
+                        <p class="text-xs text-gray-500">Développeuse Frontend</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold">
+                        PL
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm font-medium text-gray-800">Pierre Lambert</p>
+                        <p class="text-xs text-gray-500">Développeur Backend</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation de chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            // Animation de la barre de progression
+            setTimeout(() => {
+                document.querySelector('.progress-bar').style.width = '75%';
+            }, 300);
+
+            // Animation des éléments au chargement
+            const animateElements = [
+                document.querySelector('.project-card'),
+                document.querySelector('.status-badge'),
+                document.querySelector('.progress-bar-container'),
+                ...document.querySelectorAll('.bg-gray-50')
+            ];
+
+            animateElements.forEach((el, index) => {
+                if (el) {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(10px)';
+                    
+                    setTimeout(() => {
+                        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                        el.style.opacity = '1';
+                        el.style.transform = 'translateY(0)';
+                    }, index * 100 + 300);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -2,6 +2,8 @@
 CREATE TABLE Evenement (
     id_evenement INT AUTO_INCREMENT PRIMARY KEY,
     titre VARCHAR(255),
+    type VARCHAR(100),
+    lieu VARCHAR(255),
     date DATE,
     description TEXT
 );

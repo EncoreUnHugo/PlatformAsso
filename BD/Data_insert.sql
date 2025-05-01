@@ -10,10 +10,10 @@ INSERT INTO Membre (nom, prenom, email, mot_de_passe, id_role) VALUES
 ('Lemoine', 'Paul', 'paul.lemoine@email.com', 'password789', 3);  -- Modérateur
 
 
-INSERT INTO Evenement (titre, date, description) VALUES
-('Conférence SQL', '2025-05-15', 'Une conférence sur les bases de données SQL et leur utilisation dans le développement web.'),
-('Atelier React', '2025-06-10', 'Un atelier sur le développement d’applications avec React.'),
-('Hackathon 2025', '2025-07-01', 'Un événement pour les développeurs de tous horizons pour créer des projets ensemble.');
+INSERT INTO Evenement (titre,type, lieu, date, description) VALUES
+('Conférence SQL', 'Bénévolat','Bordeaux' ,'2025-05-15', 'Une conférence sur les bases de données SQL et leur utilisation dans le développement web.'),
+('Atelier React', 'Atelier','Paris' ,'2025-06-10', 'Un atelier sur le développement d’applications avec React.'),
+('Hackathon 2025', 'Bénévolat','Mérignac' ,'2025-07-01', 'Un événement pour les développeurs de tous horizons pour créer des projets ensemble.');
 
 
 INSERT INTO Projet (nom, description, statut) VALUES

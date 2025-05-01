@@ -1,0 +1,21 @@
+.event-gradient {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+.type-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    transform: rotate(5deg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.animate-pulse-slow {
+    animation: pulse 3s infinite;
+}
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
