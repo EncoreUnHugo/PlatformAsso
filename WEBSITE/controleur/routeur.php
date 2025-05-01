@@ -7,13 +7,15 @@
     $controleur = "controleurAccueil";
     $action = "afficherAccueil";
 
-    $tableauControleurs = ["controleurMembre","controleurEvenement","controleurAccueil","controleurProjet","controleurConnexion"];
+    $tableauControleurs = ["controleurMembre","controleurEvenement","controleurAccueil","controleurProjet","controleurConnexion","controleurAjoutEvenement","controleurAjoutProjet"];
     $actionParDefaut = array(
         "controleurMembre" => "lireUnObjet",
         "controleurEvenement" => "lireEvenements",
         "controleurAccueil" => "afficherAccueil",
         "controleurProjet" => "lireProjets",
         "controleurConnexion" => "afficherConnexion",
+        "controleurAjoutEvenement" => "afficherAjoutEvenement",
+        "controleurAjoutProjet" => "afficherAjoutProjet",
 
     );
 

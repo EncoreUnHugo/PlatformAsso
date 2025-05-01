@@ -1,18 +1,18 @@
 <?php
 
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/controleur/controleur.php");
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/controleur/controleurAccueil.php");
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/controleur/controleurMembre.php");
-require_once("C:/xampp\htdocs\PlatformAsso\WEBSITE/modele/membre.php");
+require_once("controleur/controleur.php");
+require_once("controleur/controleurAccueil.php");
+require_once("controleur/controleurMembre.php");
+require_once("modele/membre.php");
 
 
     class ControleurConnexion extends Controleur{
 
         public static function afficherConnexion(){
 
-            include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/debutCon.html");
+            include("vue/debutCon.html");
 
-            include("C:/xampp\htdocs\PlatformAsso\WEBSITE/vue/connexion.html");
+            include("vue/connexion.html");
 
         }
 

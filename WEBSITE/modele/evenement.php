@@ -18,7 +18,7 @@ require_once("modele/modele.php");
 
     public function afficherGenerique(){
         ?>
-        <div class="bg-white rounded-lg shadow-sm overflow-hidden event-card transition-all card-hover">
+        <div class="bg-white rounded-lg shadow-sm overflow-hidden event-card transition-all card-hover mx-10 my-10">
                     <div class="h-40 md:h-48 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Événement" class="w-full h-full object-cover">
                     </div>
@@ -50,7 +50,7 @@ require_once("modele/modele.php");
 
     public function afficher(){
         ?>
-        <div class="max-w-4xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
         <!-- Card Container -->
         <div class="event-gradient rounded-3xl overflow-hidden shadow-2xl transform transition-all duration-300 hover:scale-[1.01]">
             <!-- Header with Image -->
@@ -113,6 +113,28 @@ require_once("modele/modele.php");
         
     </div>
     <?php
+    }
+
+    public static function ajoutEvenement($t,$ty,$li,$da,$de){
+
+        $requete = "INSERT INTO Evenement (titre,`type`,lieu,`date`,`description`) VALUES (:tag_t,:tag_ty,:tag_li,:tag_da,:tag_de)";
+
+        $req_prep = Connexion::pdo()->prepare($requete);
+
+        $valM = array(
+            ":tag_t" => $t,
+            ":tag_ty" => $ty,
+            ":tag_li" => $li,
+            ":tag_da" => $da,
+            ":tag_de" => $de
+        );  
+
+    try {
+        $req_prep -> execute($valM);
+        return true;
+    } catch(PDOException $e) {
+        return false;
+    }
     }
 
 

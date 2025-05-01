@@ -20,6 +20,12 @@ Class Controleur{
 
         include("vue/navbar.php");
 
+        if($key == "evenement"){
+            include("vue/btnEvenementPlus.php");
+        } elseif($key == "projet"){
+            include("vue/btnProjetPlus.php");
+        }
+
         include("vue/lesObjets.php");
 
         include("vue/footer.html");
