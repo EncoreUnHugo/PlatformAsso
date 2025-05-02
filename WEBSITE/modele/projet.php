@@ -15,7 +15,7 @@ require_once("modele/modele.php");
 
         public function afficherGenerique(){
             ?>
-            <div class="bg-gray-50 rounded-xl p-4 md:p-6 project-card transition-all card-hover">
+            <div class="bg-gray-50 rounded-xl p-4 md:p-6 project-card transition-all card-hover mx-10 my-10">
                     <div class="flex items-start mb-4 md:mb-6">
                         <div class="bg-green-100 p-2 md:p-3 rounded-lg mr-3 md:mr-4">
                             <i class="fas fa-recycle text-green-600 text-xl md:text-2xl"></i>
@@ -151,6 +151,26 @@ require_once("modele/modele.php");
         </div>
     </div>
     <?php        
+    }
+
+    public static function ajoutProjet($n,$de,$s){
+
+        $requete = "INSERT INTO Projet (nom,`description`,statut) VALUES (:tag_n,:tag_de,:tag_s)";
+
+        $req_prep = Connexion::pdo()->prepare($requete);
+
+        $valM = array(
+            ":tag_n" => $n,
+            ":tag_de" => $de,
+            ":tag_s" => $s,
+        );  
+
+    try {
+        $req_prep -> execute($valM);
+        return true;
+    } catch(PDOException $e) {
+        return false;
+    }
     }
 }
 

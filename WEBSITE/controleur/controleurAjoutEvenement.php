@@ -19,9 +19,9 @@ class ControleurAjoutEvenement {
         $li = $_POST["lieu"];
         $da = $_POST["date"];
 
-        $M = Evenement::ajoutEvenement($t,$ty,$li,$da,$de);
+        $E = Evenement::ajoutEvenement($t,$ty,$li,$da,$de);
 
-        if($M)
+        if($E)
             ControleurEvenement::lireObjets();
         else {
             ControleurAccueil::afficherAccueil();
