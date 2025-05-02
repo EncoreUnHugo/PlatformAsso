@@ -49,15 +49,8 @@ require_once("modele/modele.php");
                 </div>          
     
                 <div class="supp">
-                    <button id="open-modal-button">Supprimer le compte</button>
-                    <div id="modal" class="modal">
-                        <div class="modal-content">
-                            <span class="close-button">&times;</span>
-                            <h2>Etes-vous sur de vouloir supprimer votre compte ?</h2>
-                            <p>cette action est irréversible</p>
-                            <button onclick="window.location.href = 'index.php?controleur=controleurMembre&action=supprimerMembre';">supprimer</button>
-                        </div>
-                    </div>
+                    <button id="open-modal-button" onclick="window.location.href = 'index.php?controleur=controleurMembre&action=supprimerMembre';">Supprimer le compte</button>
+    
                     <p>La suppression d'un compte entraîne la perte de toutes ses données ainsi que des droits de son détenteur</p>
                 </div>
             </div>

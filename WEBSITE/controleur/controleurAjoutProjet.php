@@ -18,9 +18,9 @@ class ControleurAjoutProjet {
         $s = $_POST["statut"];
 
         $P = Projet::ajoutProjet($n,$de,$s);
-
+        
         if($P)
-            ControleurProjet::lireObjets();
+        ControleurProjet::lireObjets();
         else {
             ControleurAccueil::afficherAccueil();
         }

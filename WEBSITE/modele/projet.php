@@ -155,18 +155,18 @@ require_once("modele/modele.php");
 
     public static function ajoutProjet($n,$de,$s){
 
-        $requete = "INSERT INTO Projet (nom,`description`,statut) VALUES (:tag_n,:tag_de,:tag_s)";
+        $requete = "INSERT INTO Projet (nom,description,statut) VALUES (:tag_n,:tag_de,:tag_s)";
 
         $req_prep = Connexion::pdo()->prepare($requete);
 
-        $valM = array(
+        $valP = array(
             ":tag_n" => $n,
             ":tag_de" => $de,
             ":tag_s" => $s,
         );  
 
     try {
-        $req_prep -> execute($valM);
+        $req_prep -> execute($valP);
         return true;
     } catch(PDOException $e) {
         return false;
